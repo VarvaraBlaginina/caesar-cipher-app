@@ -12,43 +12,45 @@
 - `caesar.py` - основное приложение
 - `Dockerfile` - конфигурация Docker-образа
 - `build.sh` - скрипт сборки Docker-образа
+- `push_hub.sh` - скрипт отправки образа в Docker Hub
 - `run.sh` - скрипт запуска приложения
+  
 
-## Сборка и запуск
+## Полный CI процесс
 
-### 1. Сборка Docker-образа
+### 1. Получить исходный код из Git
+```bash
+git clone https://github.com/VarvaraBlaginina/caesar-cipher-app.git
+cd caesar-cipher-app
+```
+
+### 2. Собрать Docker-образ
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-### 2. Запуск приложения
+### 3. Сохранить образ в хранилище (Docker Hub)
+```bash
+chmod +x push_hub.sh
+./push_hub.sh
+```
+
+### 4. Запустить приложение
 ```bash
 chmod +x run.sh
 ./run.sh
 ```
 
-### 3. Ручная сборка (альтернатива)
+## Альтернативные способы
+
+### Ручная сборка и запуск:
 ```bash
 docker build -t caesar-cipher-app:latest .
 docker run -it caesar-cipher-app:latest
 ```
 
-## Инструкция для того, чтобы получить код и собрать Docker-образ:
-
-```bash
-# 1. Клонировать репозиторий
-git clone https://github.com/VarvaraBlaginina/caesar-cipher-app.git
-cd caesar-cipher-app
-
-# 2. Собрать Docker-образ
-docker build -t caesar-cipher-app:latest .
-
-# 3. Запустить приложение
-docker run -it caesar-cipher-app:latest
-```
-
-### Или использовать скрипты:
+### Только основные скрипты:
 ```bash
 chmod +x build.sh run.sh
 ./build.sh    # сборка
@@ -62,3 +64,8 @@ chmod +x build.sh run.sh
 4. Введите коэффициент сдвига
 5. Приложение выведет зашифрованный текст
 6. При необходимости можно выполнить дешифрование
+
+## Требования
+- Docker (для сборки и запуска контейнера)
+- Git (для получения исходного кода)
+- Аккаунт Docker Hub (для отправки образа в хранилище)
